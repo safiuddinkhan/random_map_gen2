@@ -133,7 +133,7 @@ def divide_box(im,y,x,h,w,c,count):
 
 ###################################################################################
 
-im = Image.new('RGB', ((8*100)+10,(8*100)+10))
+im = Image.new('RGB', ((tile_w*100)+10,(tile_h*100)+10))
 gen_map(100,100)
 divide_box(im,0,0,100,100,random.randint(0,1),5)
 display_map_im(im,100,100)
