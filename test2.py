@@ -72,7 +72,7 @@ def gen_ca(map,map1,h,w):
 			#print("[%d %d] n = %d" % (y,x,c))
 			if(c > 4):
 				map1[y][x] = 0
-			elif(c <= 4):
+			else:
 				map1[y][x] = 1
 
 def clone(inp,out,h,w):
