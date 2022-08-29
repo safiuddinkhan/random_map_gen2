@@ -1,5 +1,6 @@
 from perlin_noise import PerlinNoise
 import random
+import math
 from PIL import Image, ImageDraw
 
 offset_y = 5
@@ -25,19 +26,29 @@ def display_map_im(im,h,w):
 				draw_tile(im,y,x,0xff0000)
 			elif map[y][x] == 2:
 				draw_tile(im,y,x,0x00ff00)	
+			elif map[y][x] == 3:
+				draw_tile(im,y,x,0x00ffff)	
+			elif map[y][x] == 4:
+				draw_tile(im,y,x,0xffffff)	
+
 ###################################################################################
 
 def gen_map(h,w):
-	noise = PerlinNoise(octaves=3,seed=1)
+	r = random.random() * 65536
+	noise = PerlinNoise(octaves=3,seed=r)
 	for y in range(h):
 		for x in range(w):
-			n = noise([x/w, y/h])
-			print("[%d %d]: %f" % (y,x,n))
-			if n < 0:
-				map[y][x] = 1
-			else:
-				map[y][x] = 2
 
+			n = math.floor(noise([x/w, y/h]) * 5)
+			print("[%d %d]: %f" % (y,x,n))
+			if n <= -2:
+				map[y][x] = 1
+			elif n == -1:
+				map[y][x] = 2
+			elif n == 0:
+				map[y][x] = 3
+			elif n >= 1:
+				map[y][x] = 4
 
 
 ###################################################################################
@@ -51,6 +62,3 @@ im.save("map.png", "PNG")
 im.show()
 
 
-
-
-print("Hello this is a test")
